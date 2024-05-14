@@ -52,6 +52,8 @@ Mkfile.old
 dkms.conf
 
 */test
+*/read
+*/write
 */*/test
 */*/correct
 */example.txt
