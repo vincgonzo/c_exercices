@@ -77,6 +77,7 @@ Person* findPerson(Person rep[], int nb, char *search_name){
     bool search = false;
     for (size_t i = 0; i < nb; i++)
         if(strcmp(rep[i].name, search_name) == 0){
+        // if(strstr(rep[i].name, search_name) != NULL){ // if search precisely do not convince
             displayPerson(&rep[i]);
             search = true;
         }
