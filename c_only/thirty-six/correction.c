@@ -1,32 +1,38 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// structure de pixel
-typedef struct PIXEL
+#define TAILLE_STRING 100
+#define TAILLE_PROMO 5
+#define NOTE_MOYENNE 10.0
+
+typedef struct ETUDIANT
 {
-    int x;
-    int y;
-
-    char color[20];
-}Pixel;
-
-//affichage info pixel
-void pixelInfo(Pixel pix)
-{
-    printf("\nPixel:\n");
-    printf("X: %d\n", pix.x);
-    printf("Y: %d\n", pix.y);
-    printf("Color: %s\n", pix.color);
-}
-
+    char nom[TAILLE_STRING];
+    char prenom[TAILLE_STRING];
+    float moyenne;
+}Etudiant;
 
 int main()
 {
-    Pixel pix1 = {12, 3, "Red"};
-    Pixel pix2 = {0, 0, "Black"};
+    //liste des �tudiant dans la promo
+    Etudiant promo[TAILLE_PROMO] =
+    {
+        { "Mercier", "Arnaud", 13.63},
+        { "Leroux", "Thomas", 15.21},
+        { "Pegard", "Laurie", 5.98},
+        { "Minard", "Lydie", 12.56},
+        { "Snow", "John", 9.56}
+    };
 
-    pixelInfo(pix1);
-    pixelInfo(pix2);
+    // Affichage des �tudiants loreats de la promo
+    printf("Liste des loreats:\n");
+
+    for(int i=0; i<TAILLE_PROMO; i++)
+    {
+        Etudiant candidat = promo[i];
+        if(candidat.moyenne >= NOTE_MOYENNE)
+            printf("\t%s %s: %f\n", candidat.prenom, candidat.nom, candidat.moyenne);
+    }
 
     return 0;
 }
