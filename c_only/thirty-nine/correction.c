@@ -2,61 +2,55 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define TAILLE_NOM 50
-#define TAILLE_LISTE 5
-#define AGE_MAX 15
+#define TAILLE_CHAINE 50
 
-typedef struct INVITE
+typedef struct ARME
 {
-    char nom[TAILLE_NOM];
-    int age;
-}Invite;
+    char nom[TAILLE_CHAINE];
+    int degats;
+}Arme;
 
+typedef enum CLASSE
+{
+    GUERRIER,
+    MAGE,
+    ASSASSIN
+}Classe;
 
-void filtrerInvites(Invite invites[], int* nb, int age_max);
-void envoyerInvitation(Invite invites[], int nb);
+typedef struct PERSO
+{
+    char nom[TAILLE_CHAINE];
+    int pv;
+    Classe classe;
+    Arme arme;
+}Personnage;
 
+void afficherFichePerso(Personnage perso)
+{
+    printf("\n%s:\n", perso.nom);
+    printf("\tPV: %d\n", perso.pv);
+
+    printf("\tClasse: ");
+    switch(perso.classe)
+    {
+        case GUERRIER: printf("Guerrier\n"); break;
+        case MAGE: printf("Mage\n"); break;
+        default: printf("Assassin\n"); break;
+    }
+
+    printf("\tarme: %s (%d)\n", perso.arme.nom, perso.arme.degats);
+}
 
 int main()
 {
-	Invite invites[TAILLE_LISTE]=
-	{
-        {"Marc", 14},
-        {"Arnaud", 32},
-        {"Laura", 6},
-        {"Julie", 16},
-        {"Julien", 9}
-	};
+    Arme excalibur = {"Excalibur", 120};
+    Arme graal = {"Graal", 1230};
 
-    // Selection des invites
-    int nb_invites = TAILLE_LISTE;
-    filtrerInvites(invites, &nb_invites, AGE_MAX);
-    envoyerInvitation(invites, nb_invites);
+    Personnage arthur = {"Arthur", 200, GUERRIER, excalibur};
+    Personnage merlin = {"Merlin", 50, MAGE, graal};
 
-	return 0;
-}
+    afficherFichePerso(arthur);
+    afficherFichePerso(merlin);
 
-
-void envoyerInvitation(Invite invites[], int nb)
-{
-    printf("Il y a %d invites:\n", nb);
-	for(int i=0; i<nb; i++)
-        printf("\t%s %d ans est invite a mon aniv !!!\n", invites[i].nom, invites[i].age);
-}
-
-void filtrerInvites(Invite invites[], int* nb, int age_max)
-{
-    for(int i=0; i<*nb; i++)
-    {
-        if(invites[i].age > age_max)
-        {
-            for(int j=i+1; j<*nb; j++)
-            {
-                strcpy(invites[j-1].nom, invites[j].nom);
-                invites[j-1].age = invites[j].age;
-            }
-            (*nb)--;
-            i--;
-        }
-    }
+    return 0;
 }
