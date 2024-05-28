@@ -40,8 +40,8 @@ int main()
 }
 
 void displayArrayCharacterPointer(char* array, int size){
-    printf("char = \'");
+    printf("char [] = \n");
     for (size_t i = 0; i < size; i++)
-        printf("%c", *(array + i));
-    printf("\'\n");
+        printf("address : %p - value : %c\n", (array + i), *(array + i));
+    printf("\n");
 }
