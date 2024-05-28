@@ -14,18 +14,16 @@ int main() {
         exit(1);
 
     // first method
-    while((letter = fgetc(pt_file)) != EOF){
+    while((letter = fgetc(pt_file)) != EOF)
         printf("%c", letter);
-    }
 
     printf("\n-------- METHOD 2 ------------\n");
-    fseek(pt_file, 0, SEEK_SET);
+    fseek(pt_file, 0, SEEK_SET); // move reading cursor at beginning of File
     // second method with fgets
     while (fgets(txt, MAX_STR_READ, pt_file) != NULL)
-    {
         printf("%s", txt);
-    }
     
+    // third method possible with fscanf if predefine <format> into file
 
     fclose(pt_file);
 
