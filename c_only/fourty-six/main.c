@@ -18,7 +18,8 @@ int main() {
         printf("%c", letter);
 
     printf("\n-------- METHOD 2 ------------\n");
-    fseek(pt_file, 0, SEEK_SET); // move reading cursor at beginning of File
+    fseek(pt_file, 0, SEEK_SET); // move reading cursor at beginning of File 
+    // is same as rewind(pt_file)
     // second method with fgets
     while (fgets(txt, MAX_STR_READ, pt_file) != NULL)
         printf("%s", txt);
