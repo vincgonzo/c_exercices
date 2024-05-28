@@ -1,53 +1,43 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MIN 0
-#define MAX 100
-
-
 int main()
 {
-    int taille = 0;
-    int* tab= NULL;
-    int saisie=-1;
-    int i;
-
-    printf("Entrez des entiers compris entre 0 et 100\n");
+    //lecture taille matrice
+    int taille=0;
     do
     {
-        scanf("%d", &saisie);
+      printf("Matrice unitaire de dimension [4-10]: ");
+      scanf("%d", &taille);
+    }while(taille < 4 || taille > 10);
 
-        if(saisie >= MIN && saisie <= MAX)
-        {
-            //on ajoute une case au tableau
-            taille++;
-            tab = realloc(tab, taille * sizeof(int));
+    //allocation de la dimention 1 de la matrice (lignes)
+    int**matrice_unitaire = (int**)malloc(taille * sizeof(int*));
+    if(matrice_unitaire == NULL)
+        return 1;
 
-            // on range la valeur de maniere croissante
-            for(i=(taille-1); i>0; i--)
-            {
-                tab[i] = tab[i-1];
-
-                if(tab[i] <= saisie) // bonne position
-                    break;
-            }
-            tab[i] = saisie;
-        }
-
-    }while(saisie >= MIN && saisie <= MAX);
-
-    // Affichage du resultat
-    printf("Tab = {");
+    //allocation de la dimention 2 de la matrice (colonnes)
     for(int i=0; i<taille; i++)
     {
-        if(i < taille-1)
-            printf("%d, ", *(tab+i));
-        else
-            printf("%d}", *(tab+i));
+        matrice_unitaire[i] = (int*)calloc(taille, sizeof(int));
+        matrice_unitaire[i][i] = 1;
     }
 
-    //Liberation de la memoire
-    free(tab);
+    //Affichage de la matrice
+    for(int i=0; i<taille; i++)
+    {
+        for(int j=0; j<taille; j++)
+            printf("%d ", matrice_unitaire[i][j]);
+
+        putchar('\n');
+    }
+
+    //Liberation memoire
+    for(int i=0; i<taille; i++)
+    {
+        free(matrice_unitaire[i]);
+    }
+    free(matrice_unitaire);
 
     return 0;
 }

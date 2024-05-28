@@ -3,8 +3,15 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-#define MIN_VALUE_AUTH 0
-#define MAX_VALUE_AUTH 100
+#define MIN_VALUE_AUTH 4
+#define MAX_VALUE_AUTH 10
+
+typedef struct matrix
+{
+    int length;
+    int breath;
+};
+
 
 // dynamic alloc ex02
 void displayArrayPointer(int*, int);
@@ -20,7 +27,7 @@ int main()
    do
    {
     while(1) {
-        printf("Insert values between values 0 <> 100 to create a array\n");
+        printf("Insert values between values [4 - 10 ] to create a matrix\n");
         result = scanf("%d", &tmp);
 
         // Check if scanf read an integer
