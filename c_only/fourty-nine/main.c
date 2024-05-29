@@ -14,6 +14,7 @@ typedef struct HIGHT_SCORE
     long score;
 }hightScore;
 
+void displayHighScore(hightScore array[], const int);
 
 int main()
 {
@@ -36,9 +37,18 @@ int main()
     fclose(pt_file);
 
     // Print the read high scores
-    for (int i = 0; i < numberRead; i++) {
-        printf("%s %ld\n", scores[i].name, scores[i].score);
-    }
+    displayHighScore(scores, TAILLE_LISTE);
 
     return 0;
+}
+
+void displayHighScore(hightScore scores[], const int size){
+    printf("        High Scores         \n");
+    printf("   Number | Name  |  Score  \n");
+    printf("----------------------------\n");
+    for (size_t i = 0; i < size; i++)
+    {
+        printf(" %d    | %s |  %li  \n", i + 1, scores[i].name, scores[i].score);
+    }
+    printf("----------------------------\n");
 }
