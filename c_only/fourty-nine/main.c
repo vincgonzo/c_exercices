@@ -24,16 +24,20 @@ void initArray(DHSArray* , size_t );
 void freeArray(DHSArray* );
 void resizeArray(DHSArray* , size_t );
 void addElement(DHSArray* , const char* , long );
+int compareScores(const void *, const void *);
+void removeElement(DHSArray* , size_t );
 void displayHighScore(DHSArray* , const int);
+void updateFiles(DHSArray* arr, const char* filename, const char* countfile);
 
 int main()
 {
     DHSArray scores;
+    const char *highscorefilename = "HighScore.txt", *countfilename = "count.txt";
     char name[TAILLE_MAX_NOM];
     long score;
-    FILE* pt_file = fopen("HighScore.txt", "r+");
+    FILE* pt_file = fopen(highscorefilename, "r+");
     // this file ref the number of entry into the file
-    FILE* count_file = fopen("count.txt", "r+");
+    FILE* count_file = fopen(countfilename, "r+");
     int numberRead = 0;
 
     initArray(&scores, 10);
@@ -69,6 +73,9 @@ int main()
     // Close the file
     fclose(pt_file);
 
+    // addElement(&scores, "Erol", 45893);
+    // updateFiles(&scores, highscorefilename, countfilename);
+
     // Print the read high scores
     displayHighScore(&scores, numberRead);
     
@@ -98,6 +105,13 @@ void addElement(DHSArray* arr, const char *name, long score) {
     strncpy(arr->scores[arr->size].name, name, TAILLE_MAX_NOM); // copy on the limit bounded by 3 params
     arr->scores[arr->size].score = score;
     arr->size++;
+    qsort(arr->scores, arr->size, sizeof(hightScore), compareScores);
+}
+
+int compareScores(const void *a, const void *b) {
+    hightScore *scoreA = (hightScore *)a;
+    hightScore *scoreB = (hightScore *)b;
+    return (scoreA->score - scoreB->score);
 }
 
 void freeArray(DHSArray* arr) {
@@ -105,6 +119,41 @@ void freeArray(DHSArray* arr) {
     arr->scores = NULL;
     arr->size = 0;
     arr->capacity = 0;
+}
+
+void updateFiles(DHSArray* arr, const char* filename, const char* countfile) {
+    FILE *file = fopen(filename, "w");
+    if (file == NULL) {
+        perror("Error opening high score file for writing");
+        return;
+    }
+    for (size_t i = 0; i < arr->size; i++) {
+        fprintf(file, "%s %ld\n", arr->scores[i].name, arr->scores[i].score);
+    }
+    fclose(file);
+    FILE* count = fopen(countfile, "w");
+    if (count == NULL) {
+        perror("Error opening count file for writing");
+        return;
+    }
+
+    // Write the incremented number back to the file
+    fprintf(count, "%d\n", arr->size);
+
+    // Close the file after writing
+    fclose(count);
+}
+
+void removeElement(DHSArray* arr, size_t index) {
+    if (index >= arr->size) {
+        fprintf(stderr, "Index out of bounds\n");
+        return;
+    }
+    for (size_t i = index; i < arr->size - 1; i++) {
+        arr->scores[i] = arr->scores[i + 1];
+    }
+    arr->size--;
+    qsort(arr->scores, arr->size, sizeof(hightScore), compareScores);
 }
 
 void displayHighScore(DHSArray* scores, const int size){
