@@ -6,16 +6,15 @@
 
 #define BIG 10000000UL
 
-// error message poped up if standard for atomics not there
 #if __STDC_VERSION__ < 201112 || __STDC_NO_ATOMICS__ == 1
 #error "Help, atomics is not supported"
 #endif
 
-_Atomic __uint64_t atomic_counter = 0;
+_Atomic __uint64_t counter = 0;
 
 void counttobig(){
     for (size_t i = 0; i < BIG; i++)
-        atomic_counter += i;
+        counter += i;
 }
 
 void* thread_func( void* arg ){
@@ -34,6 +33,6 @@ int main(void) {
     //wait until the thread is done before exit
     pthread_join(thread1, NULL);
     pthread_join(thread2, NULL);
-    printf("End Result is %d\n", atomic_counter);
+    printf("End Result is %d\n", counter);
     return 0;
 }
