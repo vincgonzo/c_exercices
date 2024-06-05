@@ -1,4 +1,4 @@
 
 
 all:
-	gcc -Wint-conversion -o test *.c && chmod +x test
+	gcc -pthread -o test *.c && chmod +x test
