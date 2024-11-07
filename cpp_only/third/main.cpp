@@ -9,7 +9,11 @@ int main()
     string const fileName("./examples.txt");
     // write
     ofstream wFile(fileName.c_str(), ios::app); // specify second param to add info @EOF
+    int wCursorPos = wFile.tellp(); // to get current cursor pos in w-mode
+    
+    wFile.seekp(0, ios::end); // set cursor @EOF useless here
 
+    cout << "Size of file : " << wCursorPos << " o.\n" << endl; 
     if(wFile){
         wFile << "Hello World ! \n" << endl;
     }else{
@@ -19,7 +23,9 @@ int main()
 
     // read 
     ifstream rFile(fileName.c_str()); // specify second param to add info @EOF
+    int rCursPos = wFile.tellp(); // to get current cursor pos in r-mode
 
+    rFile.seekg(5, ios::cur); // move the cursor 20 character after is actual position
     if(rFile){
 	string line;
 
