@@ -2,22 +2,23 @@
 #include <string>
 #include <ctime>
 #include <cstdlib>
+#include <memory>
 
 using namespace std;
 
 /*
 * Little Mystery Word Game
 */
-void mangleOut(string *word);
+void mangleOut(unique_ptr<string>& word);
 
 int main()
 {
     string mysteryWord, userWord;
-    string *mangledWord = nullptr;
+    //mangledWord = new string(mysteryWord);
 
     cout << "Enter Secret Word : ";
     cin >> mysteryWord;
-    mangledWord = new string(mysteryWord);
+    unique_ptr<string> mangledWord = make_unique<string>(mysteryWord);
 
     mangleOut(mangledWord);
 
@@ -36,13 +37,13 @@ int main()
         }
     }
 
-    delete mangledWord;
+    //delete mangledWord;
     mangledWord =nullptr;
 
     return 0;
 }
 
-void mangleOut(string *word){
+void mangleOut(unique_ptr<string>& word){
     string melt;
     int pos = 0;
     cout << *word << endl;
