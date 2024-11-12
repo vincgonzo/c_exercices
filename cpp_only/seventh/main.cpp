@@ -1,8 +1,7 @@
 #include <iostream>
+#include "Personnage.hpp"
 
 using namespace std;
-
-#include "./Personnage.hpp"
 
 int main()
 {
