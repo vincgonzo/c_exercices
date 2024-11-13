@@ -14,6 +14,7 @@ class Personnage
     Personnage(std::string name, int manaa, int life, Weapon const& weapon);
     ~Personnage();
     int bim() const;    
+    //TODO another example virtual int bim() const;    
     std::string myName() const;
     int myLife() const;
     void display(std::ostream &stream) const;

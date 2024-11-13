@@ -53,7 +53,7 @@ void Personnage::attack(Personnage &target){
     cout << "Life of " << target.myName() << " is now " << target.myLife() << "." << endl;
 }
 
-void Personnage::getLife(int qtLife){
+void Personnage::getLife(int qtLife) {
      this->m_life += qtLife;
 }
 
