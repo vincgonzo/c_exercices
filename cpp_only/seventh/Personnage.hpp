@@ -2,6 +2,7 @@
 #define DEF_PERSONNAGE
 
 #include <string>
+#include <iostream>
 #include "Weapon.hpp" 
 
 class Personnage 
@@ -14,7 +15,7 @@ class Personnage
     int bim() const;    
     std::string myName() const;
     int myLife() const;
-    void displayWeaponUse() const;
+    void display(std::ostream &stream) const;
     bool isAlive() const;
 
     void getHurt(int nbHurt);
@@ -29,5 +30,7 @@ class Personnage
     int m_manaa;
     Weapon m_weapon;
 };
+
+std::ostream &operator<<(std::ostream &stream, const Personnage &pers);
 
 #endif // DEF_PERSONNAGE

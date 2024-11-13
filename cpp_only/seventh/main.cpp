@@ -9,17 +9,20 @@ int main()
 
     Personnage david("david", 10, 22, lance_pierre), goliath("goliath", 0, 30, epee);
 
-    goliath.displayWeaponUse();
-    david.displayWeaponUse();
+    cout << "===== GAME STATUS =======" << endl;
+    cout << david << " and " << goliath;
     goliath.attack(david);
     david.getLife(20);
 
+    cout << "===== GAME STATUS =======" << endl;
+    cout << david << " and " << goliath;
     goliath.attack(david);
     david.attack(goliath);
 
     goliath.changeWeapon(hache);
-    goliath.displayWeaponUse();
     goliath.attack(david);
+    cout << "===== GAME STATUS =======" << endl;
+    cout << david << " and " << goliath;
 
     return 0;
 }

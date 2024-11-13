@@ -36,9 +36,9 @@ void Personnage::getHurt(int nbHurt) {
     if(!isAlive()) cout << this->myName() << " is dead." << endl;
 }
 
-void Personnage::displayWeaponUse() const {
-    cout << "P <" << myName() << "> use weapon v" << endl;
-    this->m_weapon.displayAttr();
+void Personnage::display(ostream &stream) const {
+    stream << "Character: " << m_name << ", Life: " << m_life << ", Manaa: " << m_manaa;
+    stream << ", Weapon: " << m_weapon;  // Display weapon obj 
 }
 
 void Personnage::attack(Personnage &target){
@@ -61,3 +61,8 @@ bool Personnage::isAlive() const{
      return true; 
 }
 
+ostream  &operator<<( ostream &stream, Personnage const &pers){
+    pers.display(stream);
+
+    return stream;
+}

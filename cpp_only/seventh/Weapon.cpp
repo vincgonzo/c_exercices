@@ -26,8 +26,13 @@ string Weapon::getWName() const {
     return this->m_name;
 }
 
-void Weapon::displayAttr() const{
-   cout << "Weapon use  <" << this->getWName() << "> - force <" << this->getForce() << ">" << endl;
+void Weapon::display(ostream &stream) const{
+   stream << "Weapon use  <" << this->getWName() << "> - force <" << this->getForce() << ">";
 }
 
+// Overload the << operator
+std::ostream &operator<<(std::ostream &stream, const Weapon  &weapon) {
+    weapon.display(stream);
 
+    return stream;
+}

@@ -15,12 +15,14 @@ class Weapon
     int getForce() const;
     std::string getWName() const;
     void change(std::string name, int hurt);
-    void displayAttr() const;
+    void display(std::ostream &stream) const;
     
     private: 
 
     std::string m_name;
     int m_hurt;
 };
+
+std::ostream &operator<<(std::ostream &stream, const Weapon &weapon);
 
 #endif // DEF_WEAPON
