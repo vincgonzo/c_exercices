@@ -9,6 +9,10 @@ Weapon::Weapon(){}
 Weapon::Weapon(std::string name, int hurt): m_name(name), m_hurt(hurt){
 
 }
+Weapon::Weapon(Weapon const &weapon){
+   this->m_name = weapon.getWName();
+   this->m_hurt = weapon.getForce();
+}
 Weapon::~Weapon(){
     //nothing for now
 }

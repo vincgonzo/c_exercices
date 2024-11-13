@@ -10,7 +10,8 @@ class Personnage
     public:
 
     Personnage();
-    Personnage(std::string name, int manaa, int life, Weapon weapon);
+    Personnage(Personnage const& copy);
+    Personnage(std::string name, int manaa, int life, Weapon const& weapon);
     ~Personnage();
     int bim() const;    
     std::string myName() const;
@@ -21,14 +22,15 @@ class Personnage
     void getHurt(int nbHurt);
     void attack(Personnage &target);
     void getLife(int qtLife);
-    void changeWeapon(Weapon weapon);
+    void changeWeapon(Weapon const& weapon);
+    Personnage& operator=(Personnage const& copy); 
     
     private: 
 
     int m_life;
     std::string m_name;
     int m_manaa;
-    Weapon m_weapon;
+    Weapon *m_weapon;
 };
 
 std::ostream &operator<<(std::ostream &stream, const Personnage &pers);

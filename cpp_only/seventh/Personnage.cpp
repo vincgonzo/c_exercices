@@ -5,22 +5,28 @@
 
 using namespace std;
 
-Personnage::Personnage(): m_name("connu"), m_manaa(0), m_life(20) {}
+Personnage::Personnage(): m_name("connu"), m_manaa(0), m_life(20), m_weapon(nullptr) {
+    this->m_weapon = new Weapon();
+}
+
+Personnage::Personnage(Personnage const& personna): m_name(personna.m_name), m_manaa(personna.m_manaa), m_life(personna.m_manaa) {
+     this->m_weapon = new Weapon(*(personna.m_weapon));
+}
  
-Personnage::Personnage(string name, int manaa, int life, Weapon weapon){
+Personnage::Personnage(string name, int manaa, int life, Weapon const& weapon): m_weapon(nullptr){
      this->m_name = name;
      this->m_manaa = manaa;
      this->m_life = life;
-     this->m_weapon = weapon;
+     this->m_weapon = new Weapon(weapon);
 } 
 
 Personnage::~Personnage(){
-     // nothing for now.
+     delete this->m_weapon;
 }
 
 
 int Personnage::bim() const{
-    return this->m_weapon.getForce();
+    return this->m_weapon->getForce();
 }
 
 string Personnage::myName() const{
@@ -51,14 +57,28 @@ void Personnage::getLife(int qtLife){
      this->m_life += qtLife;
 }
 
-void Personnage::changeWeapon(Weapon weapon){
-     this->m_weapon = weapon;
+void Personnage::changeWeapon(Weapon const& weapon){
+     if(this->m_weapon != nullptr)
+         delete this->m_weapon;
+     this->m_weapon = new Weapon(weapon);
 }
 
 bool Personnage::isAlive() const{
      if( myLife() <= 0)
          return false;
      return true; 
+}
+
+Personnage& Personnage::operator=(Personnage const& copy) 
+{
+    if(this != &copy) // verify is not a copy of the this obj
+    {
+        m_life = copy.m_life;
+        m_manaa = copy.m_manaa;
+	delete m_weapon;
+        m_weapon = new Weapon(*(copy.m_weapon));
+    }
+    return *this; 
 }
 
 ostream  &operator<<( ostream &stream, Personnage const &pers){

@@ -10,6 +10,7 @@ class Weapon
 
     Weapon();
     Weapon(std::string name, int hurt);
+    Weapon(Weapon const& wp);
     ~Weapon();
 
     int getForce() const;
