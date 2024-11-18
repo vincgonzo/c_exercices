@@ -7,11 +7,12 @@
 
 class Personnage 
 {
-    public:
+public:
 
     Personnage();
     Personnage(Personnage const& copy);
-    Personnage(std::string name, int manaa, int life, Weapon const& weapon);
+    Personnage(std::string name);
+    Personnage(std::string name, int life, Weapon const& weapon);
     ~Personnage();
     int bim() const;    
     //TODO another example virtual int bim() const;    
@@ -26,11 +27,10 @@ class Personnage
     void changeWeapon(Weapon const& weapon);
     Personnage& operator=(Personnage const& copy); 
     
-    private: 
+protected: 
 
     int m_life;
     std::string m_name;
-    int m_manaa;
     Weapon *m_weapon;
 };
 

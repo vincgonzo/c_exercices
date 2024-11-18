@@ -7,11 +7,13 @@
 
 class Magician : public Personnage {
     public:
+        Magician();
+        Magician(std::string, int manaa);
         void FireBallAttack();
         void restoreLifeMagik();
     
     private: 
-        int m_manaa_extra;    
+        int m_manaa;    
 };
 
 
