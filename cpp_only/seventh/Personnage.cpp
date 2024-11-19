@@ -50,7 +50,7 @@ void Personnage::display(ostream &stream) const {
     stream << ", Weapon: " << *m_weapon << "\n";  // Display weapon obj 
 }
 
-void Personnage::attack(Personnage &target){
+void Personnage::attack(Personnage &target) const{
     cout << "Character " << myName() << " attack " << target.myName() << "." << endl;        
     target.getHurt(bim());
     cout << "Life of " << target.myName() << " is now " << target.myLife() << "." << endl;

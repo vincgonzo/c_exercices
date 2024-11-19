@@ -9,8 +9,10 @@ class Magician : public Personnage {
     public:
         Magician();
         Magician(std::string, int manaa);
+        virtual ~Magician();
         void FireBallAttack();
         void restoreLifeMagik();
+        virtual void attack(Personnage &target) const;
     
     private: 
         int m_manaa;    

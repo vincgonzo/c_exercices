@@ -9,6 +9,8 @@ Magician::Magician(): Personnage(), m_manaa(20) {}
 
 Magician::Magician(string name, int manaa): Personnage(name), m_manaa(manaa) {}
 
+Magician::~Magician(){}
+
 void Magician::FireBallAttack() {
     cout << "Magician will burn your ass" << endl;
     //TODO add something here
@@ -18,3 +20,7 @@ void Magician::restoreLifeMagik(){
     cout << "Magician restore is life" << endl;
     this->getLife(BACK_TO_LIFE);
 }
+void Magician::attack(Personnage &target) const{
+    cout << "Here we change everything " << endl;
+}
+

@@ -13,7 +13,7 @@ public:
     Personnage(Personnage const& copy);
     Personnage(std::string name);
     Personnage(std::string name, int life, Weapon const& weapon);
-    ~Personnage();
+    virtual ~Personnage();
     int bim() const;    
     //TODO another example virtual int bim() const;    
     std::string myName() const;
@@ -22,7 +22,7 @@ public:
     bool isAlive() const;
 
     void getHurt(int nbHurt);
-    void attack(Personnage &target);
+    virtual void attack(Personnage &target) const;
     void getLife(int qtLife);
     void changeWeapon(Weapon const& weapon);
     Personnage& operator=(Personnage const& copy); 

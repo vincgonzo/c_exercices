@@ -26,6 +26,9 @@ int main()
     cout << "===== GAME STATUS =======" << endl;
     cout << david << " and " << goliath;
 
+    harry.attack(goliath);
+    cout << "===== GAME STATUS =======" << endl;
+
     return 0;
 }
 

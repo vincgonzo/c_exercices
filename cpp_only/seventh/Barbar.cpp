@@ -4,6 +4,9 @@
 
 using namespace std;
 
+Barbar::Barbar(){}
+
+Barbar::~Barbar(){}
 
 void Barbar::bruteForce() const {
     cout << "Double Force of character" << endl;
