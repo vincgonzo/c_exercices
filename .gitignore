@@ -56,7 +56,7 @@ dkms.conf
 */socket
 */read
 */write
-*/*/test
+*/*/*/test
 */*/server
 */*/socekt
 */*/correct
