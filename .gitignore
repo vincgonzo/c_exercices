@@ -55,6 +55,12 @@ dkms.conf
 */socket
 */read
 */write
+*/udpsend
+*/*/udpsend
+*/*/*/udpsend
+*/udprecv
+*/*/udprecv
+*/*/*/udprecv
 */test
 */*/test
 */*/*/test
