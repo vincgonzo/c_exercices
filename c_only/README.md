@@ -4,10 +4,10 @@ This repository contains multiple directories, each serving a specific C exercic
 
 ## Folder List
 
-1. **[commonly_use](./common)**
+1. **[commonly_use](./commonly_use)**
    - **Description**: variables, ptr, calculation operation and other basics stuff.
-   - **Link**: [first folder](./common)
+   - **Link**: [first folder](./commonly_use)
 
-2. **[more_advanced](./somemore)**
+2. **[more_advanced](./more_advanced)**
    - **Description**: types, strings, files playing.
-   - **Link**: [moreadv folder](./somemore)
+   - **Link**: [moreadv folder](./more_advanced)
