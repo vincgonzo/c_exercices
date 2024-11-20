@@ -11,3 +11,11 @@ This repository contains multiple directories, each serving a specific C exercic
 2. **[more_advanced](./more_advanced)**
    - **Description**: types, strings, files playing.
    - **Link**: [moreadv folder](./more_advanced)
+
+3. **[about_pointer](./ptr)**
+   - **Description**: the damn pointers & there use.
+   - **Link**: [ptr folder](./ptr)
+
+4. **[networking](./network)**
+   - **Description**: socket & communication from/to endpoints.
+   - **Link**: [ptr folder](./network)
