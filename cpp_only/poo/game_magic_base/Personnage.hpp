@@ -13,12 +13,12 @@ public:
     Personnage(Personnage const& copy);
     Personnage(std::string name);
     Personnage(std::string name, int life, Weapon const& weapon);
-    virtual ~Personnage();
+    virtual ~Personnage(); // necessary to delete the components of each class parent/child
     int bim() const;    
     //TODO another example virtual int bim() const;    
     std::string myName() const;
     int myLife() const;
-    void display(std::ostream &stream) const;
+    virtual void display(std::ostream &stream) const;
     bool isAlive() const;
 
     void getHurt(int nbHurt);
