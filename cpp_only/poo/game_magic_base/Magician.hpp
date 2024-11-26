@@ -13,9 +13,9 @@ class Magician : public Personnage {
         void FireBallAttack();
         void restoreLifeMagik();
         virtual void attack(Personnage &target) const;
-        virtual void display(std::ostream &stream) const;
     
     private: 
+        virtual void display(std::ostream &stream) const;
         int m_manaa;    
 };
 

@@ -18,7 +18,6 @@ public:
     //TODO another example virtual int bim() const;    
     std::string myName() const;
     int myLife() const;
-    virtual void display(std::ostream &stream) const;
     bool isAlive() const;
 
     void getHurt(int nbHurt);
@@ -28,12 +27,14 @@ public:
     Personnage& operator=(Personnage const& copy); 
     
 protected: 
+    virtual void display(std::ostream &stream) const;
 
     int m_life;
     std::string m_name;
     Weapon *m_weapon;
+    
+    friend std::ostream &operator<<(std::ostream &stream, const Personnage &pers);
 };
 
-std::ostream &operator<<(std::ostream &stream, const Personnage &pers);
 
 #endif // DEF_PERSONNAGE
