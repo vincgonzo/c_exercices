@@ -65,6 +65,9 @@ dkms.conf
 */*/test
 */*/*/test
 */*/*/*/test
+*/c2sender
+*/*/c2sender
+*/*/*/c2sender
 */*/server
 */*/socekt
 */*/correct
