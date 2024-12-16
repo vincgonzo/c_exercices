@@ -1,11 +1,14 @@
 #include <iostream>
 #include <memory>
 #include <thread>
+#include <mutex>
 
 int counter = 0;
+std::mutex mtx;
 
 void increment(){
     for(int i = 0; i < 100000;i++){
+        std::lock_guard<std::mutex> lock(mtx);
         ++counter;
     }
 }
@@ -24,7 +27,7 @@ int main(){
     t1.join();
     t2.join();
 
-    std::cout << "Final counter value <" << counter << "> " << std::endl; // explected 200000 but result is non-deterministic
+    std::cout << "Final counter value <" << counter << "> " << std::endl; //when mutex implemented they're is no problem anymore 
     return 0;
 }
 
