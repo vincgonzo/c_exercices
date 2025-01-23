@@ -7,6 +7,7 @@ int counter = 0;
 std::mutex mtx;
 
 void increment(){
+    std::cout << "launch een thread" << std::endl;
     for(int i = 0; i < 100000;i++){
         std::lock_guard<std::mutex> lock(mtx);
         ++counter;
