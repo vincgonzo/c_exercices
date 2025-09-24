@@ -1,5 +1,15 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string>
+#include <vector>
 #include <bfd.h>
 #include "loader.h"
+
+static int load_binary_bfd(std::string &fname, Binary *bin, Binary::BinaryType type);
+static int load_symbols_bfd(bfd *bfd_h, Binary *bin);
+static int load_dynsym_bfd(bfd *bfd_h, Binary *bin);
+static int load_sections_bfd(bfd *bfd_h, Binary *bin);
+static bfd* open_bfd(std::string &fname);
 
 int load_binary(std::string &fname, Binary *bin, Binary::BinaryType type){
     return load_binary_bfd(fname, bin, type);
@@ -32,7 +42,7 @@ static bfd* open_bfd(std::string &fname){
         return NULL;
     }
     if(!bfd_check_format(bfd_h, bfd_object)){
-        fprintf(stderr, "file '%' does not look like an executable (%s)\n", fname.c_str(), bfd_errmsg(bfd_get_error()));
+        fprintf(stderr, "file '%s' does not look like an executable (%s)\n", fname.c_str(), bfd_errmsg(bfd_get_error()));
         return NULL;
     }
     /*
@@ -40,15 +50,15 @@ static bfd* open_bfd(std::string &fname){
     */
     bfd_set_error(bfd_error_no_error);
 
-    if(bfd_get_flavour(bfd_h) -- bfd_target_unknown_flavour){
-        fprintf(stderr, "unrecognized format for binary '%' (%s)\n", fname.c_str(), bfd_errmsg(bfd_get_error()));
+    if(bfd_get_flavour(bfd_h) == bfd_target_unknown_flavour){
+        fprintf(stderr, "unrecognized format for binary '%s' (%s)\n", fname.c_str(), bfd_errmsg(bfd_get_error()));
         return NULL;
     }
 
     return bfd_h;
 }
 
-static int load_binary(std::string &fname, Binary *bin, Binary::BinaryType type){
+static int load_binary_bfd(std::string &fname, Binary *bin, Binary::BinaryType type){
     int ret;
     bfd *bfd_h;
     const bfd_arch_info_type *bfd_info;
@@ -75,7 +85,7 @@ static int load_binary(std::string &fname, Binary *bin, Binary::BinaryType type)
     }
 
     bfd_info = bfd_get_arch_info(bfd_h);
-    bin->arch_str std::string(bfd_info->printable_name);
+    bin->arch_str = std::string(bfd_info->printable_name);
     switch(bfd_info->mach){
         case bfd_mach_i386_i386:
             bin->arch = Binary::ARCH_X86;
@@ -157,7 +167,7 @@ static int load_symbols_bfd(bfd *bfd_h, Binary *bin){
 static int load_dynsym_bfd(bfd *bfd_h, Binary *bin){
     int ret;
     long n, nsyms, i;
-    asymbol **bfd_symtab;
+    asymbol **bfd_dysym;
     Symbol *sym;
 
     bfd_dysym = NULL;
@@ -209,22 +219,22 @@ int load_sections_bfd(bfd *bfd_h, Binary *bin){
     Section::SectionType sectype;
 
     for(bfd_sec = bfd_h->sections;bfd_sec; bfd_sec = bfd_sec->next ){
-        bfd_flags = bfd_get_section_flags(bfd_h, bfd_sec);
+        bfd_flags = bfd_sec->flags;
 
         sectype = Section::SEC_TYPE_NONE;
         if(bfd_flags & SEC_CODE){
-            sectype = SectionType::SEC_TYPE_CODE;
+            sectype = Section::SEC_TYPE_CODE;
         }else if(bfd_flags & SEC_DATA){
-            sectype = SectionType::SEC_TYPE_DATA;
+            sectype = Section::SEC_TYPE_DATA;
         }else {
             continue;
         }
-        vma = bfd_section_vma(bfd_h, bfd_sec);
-        size = bfd_section_size(bfd_h, bfd_sec);
-        secname = bfd_section_name(bfd_h, bfd_sec);
+        vma = bfd_section_vma(bfd_sec);
+        size = bfd_section_size(bfd_sec);
+        secname = bfd_section_name(bfd_sec);
         if(!secname) secname = "<unamed>";
 
-        bin->section.push_back(Section());
+        bin->sections.push_back(Section());
         sec = &bin->sections.back();
 
         sec->binary = bin;

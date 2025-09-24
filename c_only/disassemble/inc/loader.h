@@ -14,13 +14,13 @@ class Symbol {
         enum SymbolType {
             SYM_TYPE_UKN = 0,
             SYM_TYPE_FUNC = 1
-        }
+        };
         Symbol(): type(SYM_TYPE_UKN), name(), addr(0) {}
 
         SymbolType type;
         std::string name;
         uint64_t addr;
-}
+};
 
 class Section {
     public:
@@ -28,7 +28,7 @@ class Section {
             SEC_TYPE_NONE = 0,
             SEC_TYPE_CODE = 1,
             SEC_TYPE_DATA = 2
-        }
+        };
         Section(): binary(NULL), type(SEC_TYPE_NONE), vma(0), size(0), bytes(NULL) {}
 
         bool contains(uint64_t addr) { return (addr >= vma) && (addr-vma < size); }
@@ -39,7 +39,7 @@ class Section {
         uint64_t vma;
         uint64_t size;
         uint8_t *bytes;
-}
+};
 
 class Binary {
     public:
@@ -47,11 +47,11 @@ class Binary {
             BIN_TYPE_AUTO = 0,
             BIN_TYPE_ELF = 1,
             BIN_TYPE_PE = 2
-        }
+        };
         enum BinaryArch {
             ARCH_NONE = 0,
             ARCH_X86 = 1
-        }
+        };
 
         Binary(): type(BIN_TYPE_AUTO), arch(ARCH_NONE), bits(0), entry(0) {}
 
@@ -66,7 +66,7 @@ class Binary {
         uint64_t entry;
         std::vector<Section> sections;
         std::vector<Symbol> symbols;
-}
+};
 
 int load_binary(std::string &fname, Binary *bin, Binary::BinaryType type);
 void unload_binary(Binary *bin);
